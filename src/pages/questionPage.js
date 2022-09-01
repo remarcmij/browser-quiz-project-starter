@@ -1,6 +1,7 @@
 import { loadPage } from '../helpers/loadPage.js';
 import { createQuestionView } from '../views/questionView.js';
 import { initResultPage } from './resultPage.js';
+import { initWelcomePage } from './welcomePage.js';
 
 export const initQuestionPage = (data) => {
   const onNextClick = () => {
@@ -9,6 +10,14 @@ export const initQuestionPage = (data) => {
     } else {
       data.currentQuestionIndex += 1;
       loadPage(initQuestionPage, data);
+    }
+  };
+  const onPrevClick = () => {
+    if (data.currentQuestionIndex > 0) {
+      data.currentQuestionIndex -= 1;
+      loadPage(initQuestionPage, data);
+    } else {
+      loadPage(initWelcomePage, data);
     }
   };
 
@@ -20,7 +29,7 @@ export const initQuestionPage = (data) => {
 
   const currentQuestion = data.questions[data.currentQuestionIndex];
 
-  const props = { currentQuestion, onNextClick, handleAnswer };
+  const props = { currentQuestion, onNextClick, onPrevClick, handleAnswer };
   const view = createQuestionView(props);
 
   return view;

@@ -6,7 +6,7 @@ import { findElementsWithIds } from '../helpers/findElementsWithIds.js';
  * @returns {{Element}}
  */
 export const createQuestionView = (props) => {
-  const { currentQuestion, onNextClick, handleAnswer } = props;
+  const { currentQuestion, onNextClick, onPrevClick, handleAnswer } = props;
   const element = document.createElement('div');
 
   // I use String.raw just to get fancy colors for the HTML in VS Code.
@@ -16,12 +16,16 @@ export const createQuestionView = (props) => {
     <ul id="answerList">
     </ul>
 
+    <button id="btnPrev">
+      Prev question
+    </button>
+
     <button id="btnNext">
       Next question
     </button>
   `;
 
-  const { answerList, btnNext } = findElementsWithIds(element);
+  const { answerList, btnNext, btnPrev } = findElementsWithIds(element);
 
   for (const [key, answerText] of Object.entries(currentQuestion.answers)) {
     const { element: answerElement } = createAnswerElement({ key, answerText });
@@ -34,6 +38,7 @@ export const createQuestionView = (props) => {
     });
   }
 
+  btnPrev.addEventListener('click', onPrevClick);
   btnNext.addEventListener('click', onNextClick);
 
   const showAnswer = (currentQuestion) => {
