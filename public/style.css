@@ -20,3 +20,9 @@ ul {
 .disabled {
   pointer-events: none;
 }
+.right {
+  color: green;
+}
+.wrong {
+  color: red;
+}
