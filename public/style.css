@@ -6,15 +6,14 @@ body {
 
 .whitecover {
   position: absolute;
-  z-index: 1;
   right: 1vw;
   top: 2vh;
   height: 96vh;
   width: 40vw;
   background-color: rgba(255, 255, 255, 0.6);
+  overflow: hidden;
 }
 .header {
-  z-index: 3;
   position: absolute;
   right: 0vw;
   top: 0vh;
@@ -24,19 +23,18 @@ body {
 }
 
 #root {
-  z-index: 2;
   position: absolute;
-  right: 0.5vw;
+  left: 0.5vw;
   top: 1vh;
   height: 94vh;
   width: 39vw;
-  content: '';
   background-color: rgba(255, 255, 255, 0.7);
 }
 
 #root * {
   font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
+
 #h1Start {
   position: absolute;
   top: 17vh;
@@ -217,64 +215,3 @@ ul {
 }
 /*-y- for correct answers. We can add some nice animations*/
 /*-y- for wrong answers. We can add some nice animations*/
-
-h1.results {
-  font-weight: bold;
-  font-size: 20px;
-  position: absolute;
-  top: 6vh;
-  left: 10vh;
-  width: 30vw;
-}
-div.results {
-  position: absolute;
-  top: 13vh;
-  left: 10vh;
-  width: 30vw;
-}
-.results cite span {
-  display: inline-block;
-  border-radius: 26px;
-  width: 13px;
-  height: 13px;
-  line-height: 15px;
-  text-align: center;
-  font-size: 8px;
-  border: 1px solid black;
-  background-color: black;
-  color: white;
-  margin-right: 10px;
-}
-.results answer {
-  display: inline-block;
-  margin-left: 26px;
-}
-.results .correct {
-  font-weight: bold;
-}
-div.results * {
-  font-size: 13px;
-  font-weight: normal;
-}
-#btnRestart {
-  background-color: black;
-  border: 2px solid white;
-  display: inline-block;
-  color: white;
-  border-radius: 90px;
-  width: 90px;
-  height: 90px;
-  position: absolute;
-  left: 17vw;
-  bottom: 3vh;
-  font-weight: bold;
-  font-size: 20px;
-  box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
-  cursor: pointer;
-}
-#btnRestart span {
-  display: block;
-  font-size: 15px;
-  font-weight: normal;
-  color: grey;
-}
