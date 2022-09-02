@@ -9,6 +9,7 @@ export const createQuestionView = (props) => {
   const {
     currentQuestion,
     onNextClick,
+    onSkipClick,
     handleAnswer,
     score,
     currentQuestionIndex,
@@ -44,9 +45,10 @@ export const createQuestionView = (props) => {
     <button id="btnNext">
       ${btnText}
     </button>
+    <button id="btnSkip"> Skip </button>
   `;
 
-  const { answerList, btnNext, scoreDisplay, counterDisplay } =
+  const { answerList, btnNext, btnSkip, scoreDisplay, counterDisplay } =
     findElementsWithIds(element);
 
   for (const [key, answerText] of Object.entries(currentQuestion.answers)) {
@@ -58,7 +60,7 @@ export const createQuestionView = (props) => {
   }
 
   btnNext.addEventListener('click', onNextClick);
-
+  btnSkip.addEventListener('click', onSkipClick);
   const showCount = (count) => {
     counterDisplay.textContent = count;
   };
@@ -84,7 +86,7 @@ export const createQuestionView = (props) => {
       }
 
       if (
-        currentQuestion.selected === 'no answer' &&
+        currentQuestion.selected === null &&
         answer.id === currentQuestion.correct
       ) {
         answer.classList.add('correct');
