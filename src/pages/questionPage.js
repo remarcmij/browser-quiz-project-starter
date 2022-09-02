@@ -30,7 +30,7 @@ export const initQuestionPage = (data) => {
       view.showCount(count);
     } else {
       count = 5;
-      currentQuestion.selected = 'no answer';
+      currentQuestion.selected = null;
       view.showAnswer(currentQuestion, score);
       clearInterval(TIMER);
     }
