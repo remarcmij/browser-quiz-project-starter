@@ -16,7 +16,9 @@ export const createResultView = (props) => {
         <cite>${question.text}</cite>
         <br>
         <answer class=${className}>${
-      question.answers[question.selected]
+      question.selected == null
+        ? 'no answer'
+        : question.answers[question.selected]
     }</answer>
       </p>
     `;
