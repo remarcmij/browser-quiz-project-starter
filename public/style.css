@@ -165,6 +165,28 @@ body {
   border: 2px solid white;
   border-radius: 7px;
 }
+#hint {
+  position: absolute;
+  bottom: 18vh;
+  left: 2vw;
+  width: 35vw;
+  padding: 10px;
+  text-align: center;
+  font-size: 12px;
+  color: blue;
+}
+#hint::before {
+  content: 'Hints about subject';
+  color: black;
+  font-style: italic;
+  margin-bottom: 10px;
+  display: block;
+}
+#hint * {
+  font-style: italic;
+  font-size: 12px;
+  color: blue;
+}
 /*
 .centered {
   position: fixed;
