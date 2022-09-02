@@ -20,7 +20,11 @@ export const initQuestionPage = (data) => {
     }
     view.showAnswer(currentQuestion, data.score); //-y- data.score sended to showAnswer function
   };
-
+  const onSkipClick = () => {
+    currentQuestion.selected = null;
+    view.showAnswer(currentQuestion, score);
+    setTimeout(onNextClick, 1000);
+  };
   const currentQuestion = data.questions[data.currentQuestionIndex];
   const { score, currentQuestionIndex, questions } = data;
   let count = 10;
@@ -40,6 +44,7 @@ export const initQuestionPage = (data) => {
   const props = {
     currentQuestion,
     onNextClick,
+    onSkipClick,
     handleAnswer,
     score,
     currentQuestionIndex,

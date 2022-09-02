@@ -154,10 +154,11 @@ body {
   background-color: rgba(255, 0, 0, 0.7);
 }
 
-#btnNext {
+#btnNext,
+#btnSkip {
   position: absolute;
   bottom: 6vh;
-  left: 15vw;
+  left: 12vw;
   color: white;
   display: inline-block;
   cursor: pointer;
@@ -165,6 +166,9 @@ body {
   background-color: black;
   border: 2px solid white;
   border-radius: 7px;
+}
+#btnSkip {
+  left: 24vw;
 }
 #hint {
   position: absolute;
