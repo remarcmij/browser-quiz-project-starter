@@ -215,12 +215,3 @@ ul {
 }
 /*-y- for correct answers. We can add some nice animations*/
 /*-y- for wrong answers. We can add some nice animations*/
-
-#fakeroot {
-  position: absolute;
-  left: 0vw;
-  top: 1vh;
-  height: 94vh;
-  width: 39vw;
-  background-color: white;
-}

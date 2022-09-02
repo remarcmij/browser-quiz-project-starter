@@ -48,8 +48,13 @@ export const createQuestionView = (props) => {
     <button id="btnSkip"> Skip </button>
   `;
 
-  const { answerList, btnNext, btnSkip, scoreDisplay, counterDisplay } =
-    findElementsWithIds(element);
+  const {
+    answerList,
+    btnNext,
+    btnSkip,
+    scoreDisplay,
+    counterDisplay,
+  } = findElementsWithIds(element);
 
   for (const [key, answerText] of Object.entries(currentQuestion.answers)) {
     const { element: answerElement } = createAnswerElement({ key, answerText });
