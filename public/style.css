@@ -6,15 +6,14 @@ body {
 
 .whitecover {
   position: absolute;
-  z-index: 1;
   right: 1vw;
   top: 2vh;
   height: 96vh;
   width: 40vw;
   background-color: rgba(255, 255, 255, 0.6);
+  overflow: hidden;
 }
 .header {
-  z-index: 3;
   position: absolute;
   right: 0vw;
   top: 0vh;
@@ -24,19 +23,18 @@ body {
 }
 
 #root {
-  z-index: 2;
   position: absolute;
-  right: 0.5vw;
+  left: 0.5vw;
   top: 1vh;
   height: 94vh;
   width: 39vw;
-  content: '';
   background-color: rgba(255, 255, 255, 0.7);
 }
 
 #root * {
   font-family: Tahoma, Geneva, Verdana, sans-serif;
 }
+
 #h1Start {
   position: absolute;
   top: 17vh;
@@ -217,3 +215,12 @@ ul {
 }
 /*-y- for correct answers. We can add some nice animations*/
 /*-y- for wrong answers. We can add some nice animations*/
+
+#fakeroot {
+  position: absolute;
+  left: 0vw;
+  top: 1vh;
+  height: 94vh;
+  width: 39vw;
+  background-color: white;
+}
