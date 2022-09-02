@@ -8,33 +8,36 @@ export const createResultView = (props) => {
   const { data, onRestartClick } = props;
   const element = document.createElement('div');
   let resultText = '';
+  let index = 0;
   data.questions.forEach((question) => {
+    index++;
     const className =
-      question.correct === question.selected ? 'right' : 'wrong';
+      question.correct === question.selected ? 'correct' : 'wrong';
+    let answerText = '';
+    if (question.selected === null) {
+      answerText = `No answer given should be "${
+        question.answers[question.correct]
+      }"`;
+    } else if (question.selected !== question.correct) {
+      answerText = `Selected "${
+        question.answers[question.selected]
+      }" should be "${question.answers[question.correct]}"`;
+    } else {
+      answerText = question.answers[question.selected];
+    }
     resultText += String.raw`
       <p>
-        <cite>${question.text}</cite>
+        <cite><span>${index}</span>${question.text}</cite>
         <br>
-        <answer class=${className}>${
-      question.selected == null
-        ? 'no answer'
-        : question.answers[question.selected]
-    }</answer>
+        <answer class=${className}>${answerText}</answer>
       </p>
     `;
-    if (question.correct === question.selected) {
-      resultText += String.raw`
-      <p>
-        Correct answer was: ${question.answers[question.selected]}
-      </p>`;
-    }
   });
   element.innerHTML = String.raw`
-    <h1>Okay you've done</h1>
-    <h3> Your score is ${data.score}</h3>
-    ${resultText}
+    <h1 class="results"> Well done, here is your scores ${data.score} of ${data.questions.length}</h1>
+    <div class="results">${resultText}</div>
     
-    <button id="btnRestart">restart the quiz</button>
+    <button id="btnRestart">Go<span>again</span></button>
   `;
 
   const { btnRestart } = findElementsWithIds(element);
