@@ -1,15 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body {
-  background-image: url('./assets/background.jpg');
+  /* background-image: url('./assets/background.jpg'); */
   background-repeat: no-repeat;
   background-size: cover;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
 }
-
-.whitecover {
+#quizBackground img {
   position: absolute;
-  right: 1vw;
-  top: 2vh;
-  height: 96vh;
-  width: 40vw;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  object-fit: contain;
+}
+#quizContainer {
+  display: flex;
+  justify-content: center;
+}
+.whitecover {
+  position: relative;
+  height: 80vh;
+  width: 60vw;
   background-color: rgba(255, 255, 255, 0.6);
   overflow: hidden;
 }
@@ -18,7 +31,7 @@ body {
   right: 0vw;
   top: 0vh;
   height: 4vh;
-  width: 40vw;
+  width: 60vw;
   background-color: rgba(51, 56, 233, 0.7);
 }
 
@@ -27,28 +40,31 @@ body {
   position: absolute;
   left: 0.5vw;
   top: 1vh;
-  height: 94vh;
-  width: 39vw;
+  height: 80vh;
+  width: 60vw;
+  display: flex;
+  justify-content: center;
   background-color: rgba(255, 255, 255, 0.7);
 }
 #fakeroot {
   background-color: rgb(235, 235, 235);
 }
+#root div,
+#fakeroot div {
+  display: flex;
+  flex-direction: column;
 
-#root * {
-  font-family: Tahoma, Geneva, Verdana, sans-serif;
+  align-items: center;
 }
-
 #h1Start {
-  position: absolute;
-  top: 17vh;
-  width: 40vw;
-  font-size: 35px;
+  margin-top: 8rem;
+  width: 50vw;
+  font-size: 4rem;
   text-align: center;
 }
 #h1Start span {
   display: block;
-  font-size: 20px;
+  font-size: 2.5rem;
   font-weight: normal;
   text-align: center;
 }
@@ -57,14 +73,11 @@ body {
   border: 2px solid white;
   display: inline-block;
   color: white;
-  border-radius: 150px;
+  border-radius: 50%;
   width: 150px;
   height: 150px;
-  position: absolute;
-  left: 15vw;
-  bottom: 15vh;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 3rem;
   box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
   cursor: pointer;
 }
@@ -74,65 +87,54 @@ body {
   border: 2px solid white;
   display: inline-block;
   color: white;
-  border-radius: 60px;
-  width: 60px;
-  height: 60px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
   position: absolute;
   top: 1vh;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 1.5rem;
   padding: 0;
   margin: 0;
   text-align: center;
-  line-height: 60px;
   box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .questionCount {
   left: 1vw;
 }
+
 #counterDisplay {
   right: 1vw;
 }
-.score span {
-  font-weight: normal !important;
-}
+
 #scoreDisplay {
-  position: absolute;
-  bottom: 12vh;
-  left: 16.5vw;
-  font-size: 15px;
-  font-weight: normal;
+  font-size: 1.3rem;
   border-bottom: 1px dotted rgba(51, 56, 233, 0.7);
 }
 .question {
   font-weight: bold;
-  font-size: 15px;
-  position: absolute;
-  top: 12vh;
-  left: 10vh;
-  width: 30vw;
+  font-size: 1.6rem;
+  margin-top: 9rem;
 }
 #answerList {
-  font-size: 13px;
+  font-size: 1.6rem;
   font-weight: normal;
-  position: absolute;
-  top: 19vh;
-  left: 10vh;
   padding: 0;
-  margin: 0;
+  margin: 1rem 0;
 }
 
 #answerList li {
-  line-height: 30px;
-  margin: 15px 0;
+  margin: 1rem 0;
   cursor: pointer;
 }
 .answer-item span {
   display: inline-block;
-  border-radius: 50px;
-  width: 20px;
-  height: 20px;
-  line-height: 18px;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
   text-align: center;
   border: 1px solid rgb(51, 56, 233);
   background-color: rgba(51, 56, 233, 0.7);
@@ -158,28 +160,24 @@ body {
 
 #btnNext,
 #btnSkip {
-  position: absolute;
-  bottom: 6vh;
-  left: 12vw;
   color: white;
-  display: inline-block;
   cursor: pointer;
-  padding: 5px 20px;
+  width: 180px;
+  height: 40px;
   background-color: black;
   border: 2px solid white;
   border-radius: 7px;
+  font-size: 1.2rem;
 }
+
 #btnSkip {
   left: 24vw;
 }
 #hint {
-  position: absolute;
-  bottom: 18vh;
-  left: 2vw;
   width: 35vw;
   padding: 10px;
   text-align: center;
-  font-size: 12px;
+  font-size: 1.3rem;
   color: blue;
 }
 #hint::before {
@@ -191,7 +189,7 @@ body {
 }
 #hint * {
   font-style: italic;
-  font-size: 12px;
+
   color: blue;
 }
 /*
@@ -213,12 +211,10 @@ ul {
   list-style: none;
 }
 
-/*-y- to prevent change answer*/
 .disabled {
   pointer-events: none;
 }
-/*-y- for correct answers. We can add some nice animations*/
-/*-y- for wrong answers. We can add some nice animations*/
+
 h1.results {
   font-weight: bold;
   font-size: 20px;
@@ -278,4 +274,7 @@ div.results * {
   font-size: 15px;
   font-weight: normal;
   color: grey;
+}
+.displayNone {
+  display: none;
 }
