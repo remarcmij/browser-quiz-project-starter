@@ -27,9 +27,9 @@ export const createResultView = (props) => {
     }
     resultText += String.raw`
       <p>
-        <cite><span>${index}</span>${question.text}</cite>
+        <cite><span class="resultNumber">${index}</span>${question.text}</cite>
         <br>
-        <answer class=${className}>${answerText}</answer>
+        <p class=${className}>${answerText}</p>
       </p>
     `;
   });
@@ -37,7 +37,7 @@ export const createResultView = (props) => {
     <h1 class="results"> Well done, here is your scores ${data.score} of ${data.questions.length}</h1>
     <div class="results">${resultText}</div>
     
-    <button id="btnRestart">Go<span>again</span></button>
+    <button id="btnRestart">Restart</button>
   `;
 
   const { btnRestart } = findElementsWithIds(element);

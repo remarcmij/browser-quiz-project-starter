@@ -27,7 +27,7 @@ export const createQuestionView = (props) => {
       .map((link) => {
         return `<a href="${link.href}" target="_blank"> ${link.text}</a>`;
       })
-      .join(' & ');
+      .join(' ');
   };
   element.innerHTML = String.raw`
     <h1 class="questionCount"><span>${
@@ -99,7 +99,7 @@ export const createQuestionView = (props) => {
         currentQuestion.selected === null &&
         answer.id === currentQuestion.correct
       ) {
-        answer.classList.add('correct');
+        answer.classList.add('pass');
       }
     });
   };

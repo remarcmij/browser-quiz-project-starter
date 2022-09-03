@@ -1,25 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
 body {
-  /* background-image: url('./assets/background.jpg'); */
-  background-repeat: no-repeat;
-  background-size: cover;
   font-family: 'Roboto', sans-serif;
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
-#quizBackground img {
+#quizBackground {
+  background-image: url('./assets/back.png');
+  background-repeat: no-repeat;
+  background-size: cover;
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+.bgObject {
+  position: absolute;
+  width: 100%;
   top: 0;
   left: 0;
-  object-fit: contain;
 }
+
 #quizContainer {
   display: flex;
   justify-content: center;
 }
 .whitecover {
+  margin-top: 4rem;
   position: relative;
   height: 80vh;
   width: 60vw;
@@ -108,22 +119,23 @@ body {
 
 #counterDisplay {
   right: 1vw;
+  font-size: 3rem;
 }
 
 #scoreDisplay {
-  font-size: 1.3rem;
+  font-size: 1.8rem;
   border-bottom: 1px dotted rgba(51, 56, 233, 0.7);
 }
 .question {
   font-weight: bold;
   font-size: 1.6rem;
-  margin-top: 9rem;
+  margin: 9rem 1rem 0 1rem;
 }
 #answerList {
   font-size: 1.6rem;
   font-weight: normal;
   padding: 0;
-  margin: 1rem 0;
+  margin: 1rem 1rem;
 }
 
 #answerList li {
@@ -157,6 +169,13 @@ body {
   border-color: red;
   background-color: rgba(255, 0, 0, 0.7);
 }
+.pass {
+  color: purple;
+}
+.pass span {
+  border-color: purple;
+  background-color: rgba(225, 0, 255, 0.7);
+}
 
 #btnNext,
 #btnSkip {
@@ -177,7 +196,7 @@ body {
   width: 35vw;
   padding: 10px;
   text-align: center;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: blue;
 }
 #hint::before {
@@ -189,8 +208,10 @@ body {
 }
 #hint * {
   font-style: italic;
-
   color: blue;
+}
+#hint a {
+  margin: 0.3rem;
 }
 /*
 .centered {
@@ -217,40 +238,36 @@ ul {
 
 h1.results {
   font-weight: bold;
-  font-size: 20px;
-  position: absolute;
-  top: 6vh;
-  left: 10vh;
-  width: 30vw;
+  font-size: 2rem;
+  margin-top: 2rem;
 }
-div.results {
-  position: absolute;
-  top: 13vh;
-  left: 10vh;
-  width: 30vw;
-}
-.results cite span {
-  display: inline-block;
-  border-radius: 26px;
-  width: 13px;
-  height: 13px;
-  line-height: 15px;
+
+.resultNumber {
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
   text-align: center;
-  font-size: 8px;
+  font-size: 1rem;
   border: 1px solid black;
   background-color: black;
   color: white;
   margin-right: 10px;
 }
-.results answer {
-  display: inline-block;
-  margin-left: 26px;
+div.results {
+  display: block !important;
+  overflow-y: scroll;
+}
+.results p {
+  margin: 1rem 1rem;
 }
 .results .correct {
   font-weight: bold;
 }
+p.correct,
+p.wrong {
+  margin-left: 5rem !important;
+}
 div.results * {
-  font-size: 13px;
+  font-size: 1.5rem;
   font-weight: normal;
 }
 #btnRestart {
@@ -258,23 +275,127 @@ div.results * {
   border: 2px solid white;
   display: inline-block;
   color: white;
-  border-radius: 90px;
-  width: 90px;
-  height: 90px;
-  position: absolute;
-  left: 17vw;
-  bottom: 3vh;
+  border-radius: 50%;
+  width: 150px !important;
+  height: 120px !important;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 2rem;
   box-shadow: 2px 2px rgba(0, 0, 0, 0.5);
   cursor: pointer;
+  margin: 1rem;
 }
-#btnRestart span {
-  display: block;
-  font-size: 15px;
-  font-weight: normal;
-  color: grey;
-}
+
 .displayNone {
   display: none;
+}
+
+@media (max-width: 960px) {
+  .bgObject {
+    height: 100vh;
+    object-fit: contain;
+  }
+  .whitecover {
+    margin-top: 3rem;
+    width: 80vw;
+  }
+  .header {
+    width: 80vw;
+  }
+
+  #root,
+  #fakeroot {
+    width: 80vw;
+  }
+  #h1Start {
+    font-size: 3rem;
+  }
+  #h1Start span {
+    font-size: 1.5rem;
+  }
+  #btnStart {
+    width: 100px;
+    height: 100px;
+    font-size: 2rem;
+  }
+  #counterDisplay,
+  .questionCount {
+    width: 80px;
+    height: 80px;
+    font-size: 1.2rem;
+  }
+
+  #counterDisplay {
+    right: 1vw;
+    font-size: 2rem;
+  }
+  #scoreDisplay {
+    font-size: 1.4rem;
+  }
+  .question {
+    font-size: 1.1rem;
+    margin-top: 7rem;
+  }
+  #answerList {
+    font-size: 1.2rem;
+  }
+
+  #answerList li {
+    margin: 0.8rem 0;
+  }
+  .answer-item span {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+
+  #btnNext,
+  #btnSkip {
+    width: 180px;
+    height: 35px;
+    font-size: 1rem;
+  }
+
+  #hint {
+    font-size: 0.8rem;
+  }
+
+  /*
+.centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+*/
+
+  h1.results {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .resultNumber {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.9rem;
+  }
+
+  .results p {
+    margin: 0.9rem;
+  }
+  p.correct,
+  p.wrong {
+    margin-left: 3rem !important;
+  }
+  div.results * {
+    font-size: 1.2rem;
+  }
+  #btnRestart {
+    width: 100px !important;
+    height: 90px !important;
+
+    font-size: 1.5rem;
+  }
+
+  .displayNone {
+    display: none;
+  }
 }
