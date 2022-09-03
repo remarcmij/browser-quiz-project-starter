@@ -1,26 +1,103 @@
-'use strict';
+import { createAnswerElement } from './answerView.js';
+import { findElementsWithIds } from '../helpers/findElementsWithIds.js';
 
-import { ANSWERS_LIST_ID } from '../constants.js';
-import { NEXT_QUESTION_BUTTON_ID } from '../constants.js';
-
-/**
+/*
  * Create a full question element
- * @returns {Element}
+ * @returns {{Element}}
  */
-export const createQuestionElement = (question) => {
+export const createQuestionView = (props) => {
+  const {
+    currentQuestion,
+    onNextClick,
+    onSkipClick,
+    handleAnswer,
+    score,
+    currentQuestionIndex,
+    questionLength,
+    count,
+  } = props;
   const element = document.createElement('div');
-
+  const btnText =
+    currentQuestionIndex < questionLength - 1
+      ? 'Next question'
+      : 'View my results';
   // I use String.raw just to get fancy colors for the HTML in VS Code.
+  const getQuestionLinks = (links) => {
+    return links
+      .map((link) => {
+        return `<a href="${link.href}" target="_blank"> ${link.text}</a>`;
+      })
+      .join(' & ');
+  };
   element.innerHTML = String.raw`
-    <h1>${question}</h1>
+    <h1 class="questionCount">${
+      currentQuestionIndex + 1
+    } / ${questionLength}</h1>
+    <h1 class="question">${currentQuestion.text}</h1>
 
-    <ul id="${ANSWERS_LIST_ID}">
+    <ul id="answerList">
     </ul>
-
-    <button id="${NEXT_QUESTION_BUTTON_ID}">
-      Next question
+    <div id="hint"> 
+      ${getQuestionLinks(currentQuestion.links)}
+    </div>
+    <h1 id="scoreDisplay">Your score: ${score}</h1>
+    <h1 id="counterDisplay">${count}</h1> 
+    <button id="btnNext">
+      ${btnText}
     </button>
+    <button id="btnSkip"> Skip </button>
   `;
 
-  return element;
+  const {
+    answerList,
+    btnNext,
+    btnSkip,
+    scoreDisplay,
+    counterDisplay,
+  } = findElementsWithIds(element);
+
+  for (const [key, answerText] of Object.entries(currentQuestion.answers)) {
+    const { element: answerElement } = createAnswerElement({ key, answerText });
+    answerList.appendChild(answerElement);
+    answerElement.addEventListener('click', () => {
+      handleAnswer(currentQuestion, key);
+    });
+  }
+
+  btnNext.addEventListener('click', onNextClick);
+  btnSkip.addEventListener('click', onSkipClick);
+  const showCount = (count) => {
+    counterDisplay.textContent = count;
+  };
+
+  const showAnswer = (currentQuestion, score) => {
+    console.log({ currentQuestion }, score);
+    scoreDisplay.textContent = 'Your score: ' + score;
+
+    const answers = element.querySelectorAll('.answer-item');
+    answers.forEach((answer) => {
+      answer.classList.add('disabled');
+      if (answer.id === currentQuestion.selected) {
+        if (currentQuestion.correct === currentQuestion.selected) {
+          answer.classList.add('correct');
+        } else {
+          answer.classList.add('wrong');
+          answers.forEach((answerSecond) => {
+            if (answerSecond.id === currentQuestion.correct) {
+              answerSecond.classList.add('correct');
+            }
+          });
+        }
+      }
+
+      if (
+        currentQuestion.selected === null &&
+        answer.id === currentQuestion.correct
+      ) {
+        answer.classList.add('correct');
+      }
+    });
+  };
+
+  return { element, showAnswer, showCount };
 };

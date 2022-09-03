@@ -1,21 +1,11 @@
-'use strict';
-
-import { USER_INTERFACE_ID, START_QUIZ_BUTTON_ID } from '../constants.js';
-import { createWelcomeElement } from '../views/welcomeView.js';
+import { loadPage } from '../helpers/loadPage.js';
+import { createWelcomeView } from '../views/welcomeView.js';
 import { initQuestionPage } from './questionPage.js';
 
-export const initWelcomePage = () => {
-  const userInterface = document.getElementById(USER_INTERFACE_ID);
-  userInterface.innerHTML = '';
-
-  const welcomeElement = createWelcomeElement();
-  userInterface.appendChild(welcomeElement);
-
-  document
-    .getElementById(START_QUIZ_BUTTON_ID)
-    .addEventListener('click', startQuiz);
-};
-
-const startQuiz = () => {
-  initQuestionPage();
+export const initWelcomePage = (data) => {
+  data.score = 0; //- y - score equilazed to zero
+  data.currentQuestionIndex = 0;
+  const onStartClick = () => loadPage(initQuestionPage, data);
+  const props = { onStartClick };
+  return createWelcomeView(props);
 };

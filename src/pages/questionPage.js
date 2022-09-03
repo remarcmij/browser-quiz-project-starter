@@ -1,38 +1,57 @@
-'use strict';
+import { loadPage } from '../helpers/loadPage.js';
+import { createQuestionView } from '../views/questionView.js';
+import { initResultPage } from './resultPage.js';
 
-import {
-  ANSWERS_LIST_ID,
-  NEXT_QUESTION_BUTTON_ID,
-  USER_INTERFACE_ID,
-} from '../constants.js';
-import { createQuestionElement } from '../views/questionView.js';
-import { createAnswerElement } from '../views/answerView.js';
-import { quizData } from '../data.js';
+export const initQuestionPage = (data) => {
+  const onNextClick = () => {
+    if (data.currentQuestionIndex === data.questions.length - 1) {
+      loadPage(initResultPage, data);
+    } else {
+      data.currentQuestionIndex += 1;
+      loadPage(initQuestionPage, data);
+    }
+  };
 
-export const initQuestionPage = () => {
-  const userInterface = document.getElementById(USER_INTERFACE_ID);
-  userInterface.innerHTML = '';
+  const handleAnswer = (currentQuestion, selected) => {
+    clearInterval(TIMER);
+    currentQuestion.selected = selected;
+    if (currentQuestion.correct === selected) {
+      data.score++; //-y- if the user choose right option score increases
+    }
+    view.showAnswer(currentQuestion, data.score); //-y- data.score sended to showAnswer function
+  };
+  const onSkipClick = () => {
+    currentQuestion.selected = null;
+    view.showAnswer(currentQuestion, score);
+    setTimeout(onNextClick, 1000);
+  };
+  const currentQuestion = data.questions[data.currentQuestionIndex];
+  const { score, currentQuestionIndex, questions } = data;
+  let count = 10;
+  const counterRender = () => {
+    if (count > 0) {
+      count--;
+      view.showCount(count);
+    } else {
+      count = 5;
+      currentQuestion.selected = null;
+      view.showAnswer(currentQuestion, score);
+      clearInterval(TIMER);
+    }
+  };
+  let TIMER = setInterval(counterRender, 1000);
 
-  const currentQuestion = quizData.questions[quizData.currentQuestionIndex];
+  const props = {
+    currentQuestion,
+    onNextClick,
+    onSkipClick,
+    handleAnswer,
+    score,
+    currentQuestionIndex,
+    questionLength: questions.length,
+    count,
+  }; //-y- data added to questionView. Because we want to reach data.score in questionView
+  const view = createQuestionView(props);
 
-  const questionElement = createQuestionElement(currentQuestion.text);
-
-  userInterface.appendChild(questionElement);
-
-  const answersListElement = document.getElementById(ANSWERS_LIST_ID);
-
-  for (const [key, answerText] of Object.entries(currentQuestion.answers)) {
-    const answerElement = createAnswerElement(key, answerText);
-    answersListElement.appendChild(answerElement);
-  }
-
-  document
-    .getElementById(NEXT_QUESTION_BUTTON_ID)
-    .addEventListener('click', nextQuestion);
-};
-
-const nextQuestion = () => {
-  quizData.currentQuestionIndex = quizData.currentQuestionIndex + 1;
-
-  initQuestionPage();
+  return view;
 };
