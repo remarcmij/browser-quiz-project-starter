@@ -16,12 +16,12 @@ export const createQuestionView = (props) => {
     questionLength,
     count,
   } = props;
-  const element = document.createElement('div');
+
   const btnText =
     currentQuestionIndex < questionLength - 1
       ? 'Next Question'
       : 'View My Results';
-  // I use String.raw just to get fancy colors for the HTML in VS Code.
+
   const getQuestionLinks = (links) => {
     return links
       .map((link) => {
@@ -29,6 +29,8 @@ export const createQuestionView = (props) => {
       })
       .join(' ');
   };
+
+  const element = document.createElement('div');
   element.innerHTML = String.raw`
     <h1 class="questionCount"><span>${
       currentQuestionIndex + 1
@@ -67,6 +69,7 @@ export const createQuestionView = (props) => {
 
   btnNext.addEventListener('click', onNextClick);
   btnSkip.addEventListener('click', onSkipClick);
+
   const showCount = (count) => {
     counterDisplay.textContent = count;
   };
@@ -76,7 +79,6 @@ export const createQuestionView = (props) => {
       btnNext.classList.remove('displayNone');
       btnSkip.classList.add('displayNone');
     }
-    console.log({ currentQuestion }, score);
     scoreDisplay.textContent = 'Your score: ' + score;
 
     const answers = element.querySelectorAll('.answer-item');

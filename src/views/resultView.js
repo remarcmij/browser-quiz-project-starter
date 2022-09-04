@@ -9,6 +9,7 @@ export const createResultView = (props) => {
   const element = document.createElement('div');
   let resultText = '';
   let index = 0;
+
   data.questions.forEach((question) => {
     index++;
     const className =
@@ -33,8 +34,9 @@ export const createResultView = (props) => {
       </p>
     `;
   });
+
   element.innerHTML = String.raw`
-    <h1 class="results"> Well done, here is your scores ${data.score} of ${data.questions.length}</h1>
+    <h1 class="results"> Well done, here is your score ${data.score} of ${data.questions.length}</h1>
     <div class="results">${resultText}</div>
     
     <button id="btnRestart">Restart</button>

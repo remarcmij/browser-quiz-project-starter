@@ -3,6 +3,9 @@ import { createQuestionView } from '../views/questionView.js';
 import { initResultPage } from './resultPage.js';
 
 export const initQuestionPage = (data) => {
+  const currentQuestion = data.questions[data.currentQuestionIndex];
+  const { score, currentQuestionIndex, questions } = data;
+
   const onNextClick = () => {
     if (data.currentQuestionIndex === data.questions.length - 1) {
       loadPage(initResultPage, data);
@@ -13,21 +16,22 @@ export const initQuestionPage = (data) => {
   };
 
   const handleAnswer = (currentQuestion, selected) => {
-    clearInterval(TIMER);
+    clearInterval(intervalId);
     currentQuestion.selected = selected;
     if (currentQuestion.correct === selected) {
-      data.score++; //-y- if the user choose right option score increases
+      data.score++; // if the user choose right option score increases
     }
-    view.showAnswer(currentQuestion, data.score); //-y- data.score sended to showAnswer function
+    view.showAnswer(currentQuestion, data.score); // data.score sended to showAnswer function
   };
+
   const onSkipClick = () => {
     currentQuestion.selected = null;
     view.showAnswer(currentQuestion, score);
     setTimeout(onNextClick, 1000);
   };
-  const currentQuestion = data.questions[data.currentQuestionIndex];
-  const { score, currentQuestionIndex, questions } = data;
+
   let count = 10;
+  let intervalId = null;
   const counterRender = () => {
     if (count > 0) {
       count--;
@@ -36,10 +40,11 @@ export const initQuestionPage = (data) => {
       count = 5;
       currentQuestion.selected = null;
       view.showAnswer(currentQuestion, score);
-      clearInterval(TIMER);
+      clearInterval(intervalId);
     }
   };
-  let TIMER = setInterval(counterRender, 1000);
+
+  intervalId = setInterval(counterRender, 1000);
 
   const props = {
     currentQuestion,
@@ -50,7 +55,8 @@ export const initQuestionPage = (data) => {
     currentQuestionIndex,
     questionLength: questions.length,
     count,
-  }; //-y- data added to questionView. Because we want to reach data.score in questionView
+  }; // data added to questionView. Because we want to reach data.score in questionView
+
   const view = createQuestionView(props);
 
   return view;
