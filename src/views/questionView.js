@@ -19,20 +19,21 @@ export const createQuestionView = (props) => {
   const element = document.createElement('div');
   const btnText =
     currentQuestionIndex < questionLength - 1
-      ? 'Next question'
-      : 'View my results';
+      ? 'Next Question'
+      : 'View My Results';
   // I use String.raw just to get fancy colors for the HTML in VS Code.
   const getQuestionLinks = (links) => {
     return links
       .map((link) => {
         return `<a href="${link.href}" target="_blank"> ${link.text}</a>`;
       })
-      .join(' & ');
+      .join(' ');
   };
   element.innerHTML = String.raw`
-    <h1 class="questionCount">${
+    <h1 class="questionCount"><span>${
       currentQuestionIndex + 1
-    } / ${questionLength}</h1>
+    } / ${questionLength}</span></h1>
+    <h1 id="counterDisplay"><span>${count}</span></h1> 
     <h1 class="question">${currentQuestion.text}</h1>
 
     <ul id="answerList">
@@ -41,8 +42,8 @@ export const createQuestionView = (props) => {
       ${getQuestionLinks(currentQuestion.links)}
     </div>
     <h1 id="scoreDisplay">Your score: ${score}</h1>
-    <h1 id="counterDisplay">${count}</h1> 
-    <button id="btnNext">
+    
+    <button id="btnNext" class="displayNone">
       ${btnText}
     </button>
     <button id="btnSkip"> Skip </button>
@@ -71,6 +72,10 @@ export const createQuestionView = (props) => {
   };
 
   const showAnswer = (currentQuestion, score) => {
+    if (currentQuestion.selected !== null) {
+      btnNext.classList.remove('displayNone');
+      btnSkip.classList.add('displayNone');
+    }
     console.log({ currentQuestion }, score);
     scoreDisplay.textContent = 'Your score: ' + score;
 
@@ -94,7 +99,7 @@ export const createQuestionView = (props) => {
         currentQuestion.selected === null &&
         answer.id === currentQuestion.correct
       ) {
-        answer.classList.add('correct');
+        answer.classList.add('pass');
       }
     });
   };
